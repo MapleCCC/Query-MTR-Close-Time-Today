@@ -14,6 +14,7 @@ import sys
 import webbrowser
 
 from query.query import brute_force_query, normal_mode_query
+from utils import get_default_email_address
 
 MTR_TSI_ANNOUNCEMENT_URL = 'http://www.mtr.com.hk/alert/tsi_simpletxt_title_tc.html'
 
@@ -48,7 +49,9 @@ def initialize_argparser(parser: argparse.ArgumentParser) -> None:
         type=str,
         nargs="?",
         metavar="EMAIL_ADDRESS",
+        dest = "email_address",
         default=None,
+        const=get_default_email_address(),
         help="Register an entry in scheduler for  when update is detected, send an email to EMAIL_ADDR")
     # parser.add_argument("-q", "--quiet", action="store_true",
     #                     default=False, help="Run in quiet mode")
@@ -98,13 +101,13 @@ def query(args):
         handle_normal_mode_query_failure()
 
 
-def main():
+def main(args=sys.argv):
     parser = argparse.ArgumentParser(
         description="Query when will MTR close today.")
     initialize_argparser(parser)
-    args = parser.parse_args()
+    args = parser.parse_args(args[1:])
 
-    if args.register_mail_notifier:
+    if args.email_address:
         raise NotImplementedError
     else:
         # Run as CLI mode
@@ -113,4 +116,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

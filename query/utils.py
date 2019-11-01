@@ -24,7 +24,11 @@ def remove_capture_group_from_pattern(pattern: Pattern) -> Pattern:
     return re.compile(new)
 
 
-if __name__ == '__main__':
+def test():
     p = r"港鐵各綫.*將於晚上(?P<time>\d*)時結束。"
     assert remove_capture_group_from_pattern(
         p) == re.compile(r"港鐵各綫.*將於晚上(?:\d*)時結束。")
+
+
+if __name__ == '__main__':
+    test()

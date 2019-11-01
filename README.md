@@ -1,6 +1,6 @@
 # Query MTR Close Time Today/Tonight
 
-## Brief Background
+## Background
 
 Due to recent social movements in Hong Kong, the local subway system MTR has to early close every day. And the early close time is different from day to day. It brings some inconvenience to people. This tool is to ease the life for those people.
 
@@ -51,3 +51,5 @@ pip install -r requirements.txt
 ## Miscellaneous
 
 The third-party library `schedule` is intentionally loaded as git submodule/subtree instead of pip module, in case pip installation permission can't be easily acquired under some circumstances.
+
+All python code are heavily type annotated.
