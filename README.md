@@ -2,7 +2,7 @@
 
 ## Background
 
-Due to recent social movements in Hong Kong, the local subway system MTR has to early close every day. And the early close time is different from day to day. It brings some inconvenience to people. This tool is to ease the life for those people.
+Due to recent social movements in Hong Kong, the local subway system MTR has to early close every day. And the close time is different from day to day. It brings some inconvenience to people. This tool is intended to ease people's life.
 
 ## Usage
 
@@ -33,8 +33,9 @@ optional arguments:
   --fire-browser        When query fails, open the train service info
                         announcement website in browser instead.
   --register-mail-notifier [EMAIL_ADDRESS]
-                        Register an entry in scheduler for when update is
-                        detected, send an email to EMAIL_ADDR
+                        Register an entry in scheduler, periodically run and
+                        detect update, send a notification email to
+                        EMAIL_ADDRESS.
 '
 ```
 

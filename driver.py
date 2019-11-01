@@ -13,7 +13,7 @@ import argparse
 import sys
 import webbrowser
 
-from query.query import brute_force_query, normal_mode_query
+from query import brute_force_query, normal_mode_query
 from utils import get_default_email_address
 
 MTR_TSI_ANNOUNCEMENT_URL = 'http://www.mtr.com.hk/alert/tsi_simpletxt_title_tc.html'
@@ -49,17 +49,18 @@ def initialize_argparser(parser: argparse.ArgumentParser) -> None:
         type=str,
         nargs="?",
         metavar="EMAIL_ADDRESS",
-        dest = "email_address",
+        dest="email_address",
         default=None,
         const=get_default_email_address(),
-        help="Register an entry in scheduler for  when update is detected, send an email to EMAIL_ADDR")
+        help="Register an entry in scheduler, periodically run "
+             "and detect update, send a notification email to EMAIL_ADDRESS.")
     # parser.add_argument("-q", "--quiet", action="store_true",
     #                     default=False, help="Run in quiet mode")
     # parser.add_argument("--locale", type=str,
     #                     default="zh-cn", help="Set the locale")
 
 
-def query(args):
+def query(args) -> str:
 
     def handle_brute_force_query_failure():
         if args.fall_back:
@@ -101,7 +102,7 @@ def query(args):
         handle_normal_mode_query_failure()
 
 
-def main(args=sys.argv):
+def main(args: list = sys.argv):
     parser = argparse.ArgumentParser(
         description="Query when will MTR close today.")
     initialize_argparser(parser)
