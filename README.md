@@ -9,9 +9,11 @@ Due to recent social movements in Hong Kong, the local subway system MTR has to 
 ```bash
 # query MTR close time today
 $ python driver.py
+港鐵各綫(機場快綫除外)、輕鐵及港鐵巴士服務將於晚上11時結束。
 
 # register an automatic mail notifier
 $ python driver.py --register-mail-notifier
+Register mail notifier successfully!
 
 # get detailed help message
 $ python driver.py --help
