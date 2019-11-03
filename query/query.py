@@ -29,6 +29,9 @@ CLOSE_TIME_ANNOUNCEMENT_PATTERN = re.compile(r"港鐵各綫.*將於晚上(?P<tim
 
 
 class FlipArea:
+    """
+    An OO abstraction for flip area of the website
+    """
     def __init__(self, tag: Tag):
         # simple sanity check
         assert tag.name == 'div' and tag['id'] == 'flip-area'
@@ -36,7 +39,7 @@ class FlipArea:
         self._check_validity()
 
         alist_TSI_div_tag = self._tag.find_all(id=TSI_DIV_ID_PATTERN)
-        self._TSI_list = map(TrainServiceInfo, alist_TSI_div_tag)
+        self._TSI_list = list(map(TrainServiceInfo, alist_TSI_div_tag))
 
     __slots__ = ['_tag', '_TSI_list']
 
@@ -52,6 +55,9 @@ class FlipArea:
 
 
 class TrainServiceInfo:
+    """
+    An OO abstraction for train service information blocks of the website.
+    """
     def __init__(self, tag: Tag):
 
         def extract_release_datetime() -> datetime:
@@ -170,3 +176,5 @@ def normal_mode_query(verbose: bool = False) -> str:
         else:
             raise ValueError(
                 f"Something went wrong when parsing the text: {text}")
+
+    return "No train service information related to early close of train service is posted today."

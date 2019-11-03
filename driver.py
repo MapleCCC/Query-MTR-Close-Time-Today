@@ -62,7 +62,7 @@ def initialize_argparser(parser: argparse.ArgumentParser) -> None:
 
 def query(args) -> str:
 
-    def handle_brute_force_query_failure():
+    def handle_brute_force_query_failure(e: BaseException):
         if args.fall_back:
             print("Brute-force strategy failed. Try normal mode instead.")
         else:
@@ -72,7 +72,7 @@ def query(args) -> str:
                 # `from None` suppresses exception chaining
                 raise RuntimeError("Brute-force query failed") from None
 
-    def handle_normal_mode_query_failure():
+    def handle_normal_mode_query_failure(e: BaseException):
         if args.fire_browser:
             print("Normal mode query failed. Open the web page in browser instead.")
             webbrowser.open_new_tab(MTR_TSI_ANNOUNCEMENT_URL)
@@ -93,13 +93,13 @@ def query(args) -> str:
         # quick and dirty query
         try:
             return brute_force_query(args.verbose)
-        except:
-            handle_brute_force_query_failure()
+        except BaseException as e:
+            handle_brute_force_query_failure(e)
 
     try:
         return normal_mode_query(args.verbose)
-    except:
-        handle_normal_mode_query_failure()
+    except BaseException as e:
+        handle_normal_mode_query_failure(e)
 
 
 def main(args: list = sys.argv):
