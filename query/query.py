@@ -142,7 +142,7 @@ def brute_force_query(verbose: bool = False) -> str:
         # revision to previous announcement could be possible.
         return match.group(0)
     else:
-        return "No train service information related to early close of train service is posted today."
+        return "Probably no train service information related to early close of train service is posted today."
 
 
 @type_check
@@ -163,7 +163,7 @@ def normal_mode_query(verbose: bool = False) -> str:
 
     for tsi in flip_area.sorted_tsi():
         if not tsi.IsReleasedToday():
-            return "No train service information related to early close of train service is posted today."
+            return "Probably no train service information related to early close of train service is posted today."
 
         text = tsi.get_sliding_text()
         matches = re.findall(remove_capture_group_from_pattern(
@@ -177,4 +177,4 @@ def normal_mode_query(verbose: bool = False) -> str:
             raise ValueError(
                 f"Something went wrong when parsing the text: {text}")
 
-    return "No train service information related to early close of train service is posted today."
+    return "Probably no train service information related to early close of train service is posted today."

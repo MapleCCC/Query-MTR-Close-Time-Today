@@ -41,6 +41,8 @@ optional arguments:
 '
 ```
 
+Note that the script inevitably has to make certain amounts of assumptions about the web content structure and announcement content pattern. These assumptions have different confidence to hold true for various periods. The script has been carefully and intentionally written with the principle `failure is better than unsoundness` in mind, adhereing to a more restricted fault-tolerant style, in order to reduce chance of yielding unsoundness as much as possible. However it's impossible to eradicate all the unsoundness, due to the natural complexity and uncertainty of third-party website. Be advised that the query result could be unreliable and use to your own risk.
+
 ## Install
 
 Prerequisites: Python 3.x and `schedule` library.
