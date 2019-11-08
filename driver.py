@@ -31,22 +31,28 @@ def initialize_argparser(parser: argparse.ArgumentParser) -> None:
         "but the result might be less reliable.")
     parser.add_argument("-v", "--verbose", action="store_true",
                         default=False, help="Increase verbosity")
-    parser.add_argument("-d", "--debug", action="store_true",
-                        default=False, help="Run in debug mode")
+    parser.add_argument(
+        "-d",
+        "--debug",
+        dest="enabled_debug_mode",
+        action="store_true",
+        default=False,
+        help="Run in debug mode")
     parser.add_argument(
         "--fall-back",
+        dest="enabled_fall_back",
         action="store_true",
         default=False,
         help="Decide whether to resume with normal mode query after brute force query failed")
     group.add_argument(
         "--fire-browser",
+        dest="enabled_fire_browser",
         action="store_true",
         default=False,
         help="When query fails, open the train service info "
         "announcement website in browser instead.")
     group.add_argument(
         "--register-mail-notifier",
-        type=str,
         nargs="?",
         metavar="EMAIL_ADDRESS",
         dest="email_address",
@@ -63,32 +69,32 @@ def initialize_argparser(parser: argparse.ArgumentParser) -> None:
 def query(args) -> str:
 
     def handle_brute_force_query_failure(e: BaseException):
-        if args.fall_back:
+        if args.enabled_fall_back:
             if args.verbose:
                 print("Brute-force strategy failed. Try normal mode instead.")
             # get out of failure handler, return flow of control
             # to main function to propogate to normal mode query
             return
 
-        if args.debug:
+        if args.enable_debug_mode:
             raise RuntimeError("Brute-force strategy failed")
         else:
             # `from None` suppresses exception chaining
             raise RuntimeError("Brute-force query failed") from None
 
     def handle_normal_mode_query_failure(e: BaseException):
-        if args.fire_browser:
+        if args.enabled_fire_browser:
             print("Normal mode query failed. Open the web page in browser instead.")
             webbrowser.open_new_tab(MTR_TSI_ANNOUNCEMENT_URL)
             return
 
-        if args.debug:
+        if args.enabled_debug_mode:
             raise RuntimeError("Normal mode query failed")
         else:
             # `from None` suppresses exception chaining
             raise RuntimeError("Normal mode query failed") from None
 
-    if not args.debug:
+    if not args.enabled_debug_mode:
         # this clean trick also has desirable side effect that exception
         # chaining is suppressed.
         sys.excepthook = lambda exctype, exc, traceback: print(
