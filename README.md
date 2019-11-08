@@ -1,5 +1,7 @@
 # Query MTR Close Time Today/Tonight
 
+[![Build Status](https://travis-ci.org/MapleCCC/Query-MTR-Close-Time-Today.svg?branch=master)](https://travis-ci.org/MapleCCC/Query-MTR-Close-Time-Today)
+
 ## Background
 
 Due to recent social movements in Hong Kong, the local subway system MTR has to early close every day. And the close time is different from day to day. It brings some inconvenience to people. This tool is intended to ease people's life.
