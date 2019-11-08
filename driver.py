@@ -64,24 +64,29 @@ def query(args) -> str:
 
     def handle_brute_force_query_failure(e: BaseException):
         if args.fall_back:
-            print("Brute-force strategy failed. Try normal mode instead.")
+            if args.verbose:
+                print("Brute-force strategy failed. Try normal mode instead.")
+            # get out of failure handler, return flow of control
+            # to main function to propogate to normal mode query
+            return
+
+        if args.debug:
+            raise RuntimeError("Brute-force strategy failed")
         else:
-            if args.debug:
-                raise RuntimeError("Brute-force strategy failed")
-            else:
-                # `from None` suppresses exception chaining
-                raise RuntimeError("Brute-force query failed") from None
+            # `from None` suppresses exception chaining
+            raise RuntimeError("Brute-force query failed") from None
 
     def handle_normal_mode_query_failure(e: BaseException):
         if args.fire_browser:
             print("Normal mode query failed. Open the web page in browser instead.")
             webbrowser.open_new_tab(MTR_TSI_ANNOUNCEMENT_URL)
+            return
+
+        if args.debug:
+            raise RuntimeError("Normal mode query failed")
         else:
-            if args.debug:
-                raise RuntimeError("Normal mode query failed")
-            else:
-                # `from None` suppresses exception chaining
-                raise RuntimeError("Normal mode query failed") from None
+            # `from None` suppresses exception chaining
+            raise RuntimeError("Normal mode query failed") from None
 
     if not args.debug:
         # this clean trick also has desirable side effect that exception
