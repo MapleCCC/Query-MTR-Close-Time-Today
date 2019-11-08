@@ -43,21 +43,31 @@ optional arguments:
 '
 ```
 
-Note that the script inevitably has to make certain amounts of assumptions about the web content structure and announcement content pattern. These assumptions have different confidence to hold true for various periods. The script has been carefully and intentionally written with the principle `failure is better than unsoundness` in mind, adhereing to a more restricted fault-tolerant style, in order to reduce chance of yielding unsoundness as much as possible. However it's impossible to eradicate all the unsoundness, due to the natural complexity and uncertainty of third-party website. Be advised that the query result could be unreliable and use to your own risk.
+Note that the script actually `try its best effort`. It's inevitable to have to make certain amounts of assumptions about the web content structure and announcement context pattern. These assumptions have different confidence to hold true for various periods. The script has been carefully and intentionally written with the principle `failure is better than unsoundness` in mind, adhereing to a more restricted fault-tolerant style, in order to reduce chance of yielding unsoundness as much as possible. However it's impossible to eradicate all the unsoundness, due to the natural complexity and uncertainty of third-party website. Be advised that the query result could be unreliable and use to your own risk.
 
 ## Install
 
-Prerequisites: Python 3.x and `schedule` library.
+> Prerequisites: Python 3.6 and some optional third-party libraries, if more advanced feature support is desired.
 
 ```bash
 git clone https://github.com/MapleCCC/Query-MTR-Close-Time-Today.git
 
-pip install -r requirements.txt
+# optionally install library support for advanced features, e.g., register email notifier.
+python -m pip install --upgrade -r requirements.txt
+```
+
+# Test
+
+`Pytest` is used to run the tests.
+
+```bash
+# install pytest if not already
+python -m pip install --upgrade -r test_requirements.txt
+
+python -m pytest tests
 ```
 
 ## Miscellaneous
-
-The third-party library `schedule` is intentionally loaded as git submodule/subtree instead of pip module, in case pip installation permission can't be easily acquired under some circumstances.
 
 All python code are heavily type annotated.
 
