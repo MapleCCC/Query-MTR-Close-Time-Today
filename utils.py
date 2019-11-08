@@ -1,5 +1,15 @@
+import os
+
 __all__ = ['get_default_email_address']
 
-# Reference: https://github.com/kovidgoyal/calibre/blob/74d97ca869/src/calibre/utils/smtp.py
+
 def get_default_email_address():
-    raise NotImplementedError
+    """
+    Try to get user email address from several standard positions.
+    """
+    # Which one should we use? getpass.getuser() or os.getenv('username')?
+    # Another fallback option is to retrive user.email entry from Git config
+    # file.
+    username = os.getenv('USERNAME')
+    userprofile = os.getenv('USERPROFILE')
+    return f'{username}@{userprofile}'
