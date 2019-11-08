@@ -125,4 +125,6 @@ dmypy.json
 .pyre/
 
 archive/
-temp*
+temp.py
+temp_*.py
+temp/
