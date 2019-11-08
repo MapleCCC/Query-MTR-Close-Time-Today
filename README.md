@@ -58,3 +58,7 @@ pip install -r requirements.txt
 The third-party library `schedule` is intentionally loaded as git submodule/subtree instead of pip module, in case pip installation permission can't be easily acquired under some circumstances.
 
 All python code are heavily type annotated.
+
+# License
+
+[WTFPL 2.0](./LICENSE)
