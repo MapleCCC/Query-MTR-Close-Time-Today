@@ -66,25 +66,30 @@ def initialize_argparser(parser: argparse.ArgumentParser) -> None:
     #                     default="zh-cn", help="Set the locale")
 
 
-def query(args) -> str:
+def handle_brute_force_query_failure(
+        e: BaseException,
+        enabled_fall_back: bool)->None:
+    if enabled_fall_back:
+        print("Brute-force strategy failed. Try normal mode instead.")
+        # get out of failure handler, return flow of control
+        # to main function to propogate to normal mode query
+        return
 
-    def handle_brute_force_query_failure(e: BaseException):
-        if args.enabled_fall_back:
-            if args.verbose:
-                print("Brute-force strategy failed. Try normal mode instead.")
-            # get out of failure handler, return flow of control
-            # to main function to propogate to normal mode query
-            return
+    raise RuntimeError("Brute-force strategy failed")
 
-        raise RuntimeError("Brute-force strategy failed")
 
-    def handle_normal_mode_query_failure(e: BaseException):
-        if args.enabled_fire_browser:
-            print("Normal mode query failed. Open the web page in browser instead.")
-            webbrowser.open_new_tab(MTR_TSI_ANNOUNCEMENT_URL)
-            return
+def handle_normal_mode_query_failure(
+        e: BaseException,
+        enabled_fire_browser: bool)->None:
+    if enabled_fire_browser:
+        print("Normal mode query failed. Open the web page in browser instead.")
+        webbrowser.open_new_tab(MTR_TSI_ANNOUNCEMENT_URL)
+        return
 
-        raise RuntimeError("Normal mode query failed")
+    raise RuntimeError("Normal mode query failed")
+
+
+def query(args: list) -> str:
 
     if not args.enabled_debug_mode:
         # this clean trick also has desirable side effect that exception
@@ -97,12 +102,12 @@ def query(args) -> str:
         try:
             return brute_force_query(args.verbose)
         except BaseException as e:
-            handle_brute_force_query_failure(e)
+            handle_brute_force_query_failure(e, args.enabled_fall_back)
 
     try:
         return normal_mode_query(args.verbose)
     except BaseException as e:
-        handle_normal_mode_query_failure(e)
+        handle_normal_mode_query_failure(e, args.enabled_fire_browser)
 
 
 def main(args: list = sys.argv):
