@@ -43,11 +43,11 @@ optional arguments:
 '
 ```
 
-Note that the script actually `try its best effort`. It's inevitable to have to make certain amounts of assumptions about the web content structure and announcement context pattern. These assumptions have different confidence to hold true for various periods. The script has been carefully and intentionally written with the principle `failure is better than unsoundness` in mind, adhereing to a more restricted fault-tolerant style, in order to reduce chance of yielding unsoundness as much as possible. However it's impossible to eradicate all the unsoundness, due to the natural complexity and uncertainty of third-party website. Be advised that the query result could be unreliable and use to your own risk.
+## Installation
 
-## Install
+### Prerequisites
 
-> Prerequisites: Python 3.6 and some optional third-party libraries, if more advanced feature support is desired.
+Python 3.6 and some optional third-party libraries, if more advanced feature support is desired.
 
 ```bash
 git clone https://github.com/MapleCCC/Query-MTR-Close-Time-Today.git
@@ -56,7 +56,9 @@ git clone https://github.com/MapleCCC/Query-MTR-Close-Time-Today.git
 python -m pip install --upgrade -r requirements.txt
 ```
 
-# Test
+## Development
+
+### Test
 
 `Pytest` is used to run the tests.
 
@@ -69,8 +71,10 @@ python -m pytest tests
 
 ## Miscellaneous
 
-All python code are heavily type annotated.
+- It's development goal to cover python code in heavy type annotations.
 
-# License
+- Note that the script actually **`try its best effort`**. It's inevitable to have to make certain amounts of assumptions about the web content structure and announcement context pattern. These assumptions have different confidence to hold true for various periods. The script has been carefully and intentionally written with the principle **`failure is better than unsoundness`** in mind, adhereing to a more restricted fault-tolerant style, in order to reduce the chance of yielding unsoundness as much as possible. However it's impossible to eradicate all the unsoundness, due to the natural complexity and uncertainty of third-party website. Be advised that the query result could be unreliable and use to your own risk.
+
+## License
 
 [WTFPL 2.0](./LICENSE)
