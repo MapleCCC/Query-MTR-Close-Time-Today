@@ -16,6 +16,15 @@ import webbrowser
 from query import brute_force_query, normal_mode_query
 from utils import get_default_email_address
 
+try:
+    import schedule
+    import yagmail
+except ImportError:
+    MAIL_NOTIFIER_ENABLED = False
+else:
+    MAIL_NOTIFIER_ENABLED = True
+
+
 MTR_TSI_ANNOUNCEMENT_URL = 'http://www.mtr.com.hk/alert/tsi_simpletxt_title_tc.html'
 
 
@@ -117,6 +126,10 @@ def main(args: list = sys.argv):
     args = parser.parse_args(args[1:])
 
     if args.email_address:
+        if not MAIL_NOTIFIER_ENABLED:
+            raise RuntimeError(
+                "Support libraries for mail notification feature is not installed. "
+                "Try `python -m pip install -r requirements.txt` to fix.")
         raise NotImplementedError
     else:
         # Run as CLI mode
