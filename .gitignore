@@ -124,6 +124,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Pytype type checker
+.pytype/
+
 # temporary and archived files
 temp.py
 temp.txt
